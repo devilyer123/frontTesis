@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/action1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Lista de Pedidos</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="createPdf()">
+        <ion-icon color="secondary" slot="icon-only" name="document-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="downloadPdf()"  [disabled]="!pdfObj">
+        <ion-icon color="secondary" slot="icon-only" name="download-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar" 
+    [animated]="true"
+    (ionChange)="onSearchChange( $event )"
+    [debounce]="250"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let ord of order | filtro:textoBuscar:'nomPro'">
+    <ion-card-header>
+      <ion-card-title> {{ord.nomPro}} </ion-card-title>
+      <!--<ion-card-subtitle> Pedido Realizado: {{ord.createdAt | date:'dd-MM-yyyy HH:mm:ss'}} </ion-card-subtitle>-->
+      <ion-card-subtitle> Cantidad Solicitada: {{ord.cantSolic}} </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content> Monto Total: {{ord.montoTotal}} </ion-card-content>
+    <ion-item>
+      <ion-label> Vendido: {{ord.createdAt | date:'dd/MM/yyyy HH:mm:ss'}} </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="generateInvoice()">
+          <ion-icon color="secondary" slot="icon-only" name="file-tray-full-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item>
+      <ion-buttons slot="end">
+        <ion-button expand="block" (click)="searchProduct(ord.idped, ord.proId, ord.cantSolic)">
+          <ion-icon slot="icon-only" name="trash-outline" color="danger"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-card>
+</ion-content>

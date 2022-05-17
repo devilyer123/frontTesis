@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/action2"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Actualizar Estado de la Distribución</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-list>
+
+      <ion-item-divider>
+        <ion-label>Datos de la Entrega</ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label position="floating">Nombre Producto</ion-label>
+        <ion-input name="nomPro" type="text" [(ngModel)]="distribution.nomPro" disabled required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Cantidad Solicitada de Productos</ion-label>
+        <ion-input name="cantSolic" type="number" [(ngModel)]="distribution.cantSolic" disabled required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Monto total de Venta</ion-label>
+        <ion-input name="montoTotal" type="number" [(ngModel)]="distribution.montoTotal" disabled required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Estado del Pedido</ion-label>
+        <ion-input name="estadoPedido" type="text" [(ngModel)]="distribution.estadoPedido" required></ion-input>
+        <ion-buttons slot="end">
+          <ion-button expand="block" (click)="assignCondOrder()">
+            <ion-icon slot="icon-only" name="nuclear-outline" color="tertiary" ></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Seleccionar Tipo de Pago</ion-label>
+        <ion-input name="typPage" type="text" [(ngModel)]="upTypPage.typPage" required></ion-input>
+        <ion-buttons slot="end">
+          <ion-button expand="block" (click)="assignTypPage()">
+            <ion-icon slot="icon-only" name="nuclear-outline" color="tertiary" ></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button (click)="upDistribution()">
+      Actualizar Informacion
+    </ion-button>
+  </form>
+</ion-content>

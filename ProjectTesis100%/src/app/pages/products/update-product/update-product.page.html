@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/products"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Actualizar Informacion del Producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-list>
+
+      <ion-item-divider>
+        <ion-label>Datos del Producto</ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label position="floating">Nombre Producto</ion-label>
+        <ion-input name="nomProd" type="text" [(ngModel)]="prod.nomProd" disabled required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Cantidad Disponible de Productos</ion-label>
+        <ion-input name="cantDisp" type="number" [(ngModel)]="prod.cantDisp" disabled required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Cantidad a Aumentar al Stock actual del Producto</ion-label>
+        <ion-input name="cantAdd" type="number" [(ngModel)]="upStockProduct.cantAdd" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Precio de Venta</ion-label>
+        <ion-input name="precio" type="number" [(ngModel)]="prod.precio" required></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button color="tertiary" shape="round" (click)="upProduct()">Acutalizar Producto en Stock</ion-button>
+
+  </form>
+</ion-content>

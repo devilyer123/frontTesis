@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/action3"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Generacion de Reportes de Creditos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Fecha Inicial</ion-label>
+      <ion-buttons slot="end">
+        <ion-button expand="block">
+          <ion-icon color="secondary" slot="icon-only" name="calendar-outline"></ion-icon>
+        </ion-button>
+        <ion-datetime display-format="DD MMMM YYYY"
+                      cancelText="Cancelar"
+                      doneText="Aceptar"
+                      name="fechaInicial"
+                      [(ngModel)]="fechaInicial"
+                      (ionChange)="cambioFecha($event)"></ion-datetime>
+      </ion-buttons>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Fecha Final</ion-label>
+      <ion-buttons slot="end">
+        <ion-button expand="block">
+          <ion-icon color="secondary" slot="icon-only" name="calendar-outline"></ion-icon>
+        </ion-button>
+        <ion-datetime display-format="DD MMMM YYYY"
+                      cancelText="Cancelar"
+                      doneText="Aceptar"
+                      name="fechaFinal"
+                      [(ngModel)]="fechaFinal"
+                      (ionChange)="cambioFecha($event)"></ion-datetime>
+      </ion-buttons>
+    </ion-item>
+
+    <ion-button color="tertiary" shape="round" (click)="selectPdf()">Generar PDF</ion-button>
+    <ion-button color="tertiary" shape="round" (click)="downloadPdf()"  [disabled]="!pdfObj">Descargar PDF</ion-button>
+
+  </ion-list>
+</ion-content>

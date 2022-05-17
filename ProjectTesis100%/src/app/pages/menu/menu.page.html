@@ -1,0 +1,26 @@
+<!--<ion-app>
+  <ion-menu side="start" menuId="prods" contentId="menuContent">-->
+    <ion-header>
+      <ion-toolbar>
+        <ion-title color="primary">Actividades</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    
+    <ion-content>
+    
+      <ion-list>
+        <ion-item *ngFor="let act of activities"
+                  [routerLink]="act.redirectTo"
+                  detail>
+          <ion-icon [name]="act.icon" slot="start" color="primary"></ion-icon>
+          {{ act.name }}
+        </ion-item>
+      </ion-list>
+    
+      <ion-button expand="block" share="round" color="primary" (click)="CloseToLogin()">Cerrar Sesión</ion-button>
+    
+    </ion-content>
+  <!--</ion-menu>
+  
+  <ion-router-outlet id="menuContent"></ion-router-outlet>
+</ion-app>-->

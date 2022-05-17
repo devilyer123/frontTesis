@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/action1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro de Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-list>
+
+      <ion-item-divider>
+        <ion-label>Datos del Producto</ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input name="nomPriCli" type="text" [(ngModel)]="regisClient.nomPriCli" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Apellido Paterno</ion-label>
+        <ion-input name="apePatCli" type="text" [(ngModel)]="regisClient.apePatCli" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Apellido Materno</ion-label>
+        <ion-input name="apeMatCli" type="text" [(ngModel)]="regisClient.apeMatCli" required></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button color="tertiary" shape="round" (click)="regCli()">Registrar Cliente</ion-button>
+
+  </form>
+</ion-content>

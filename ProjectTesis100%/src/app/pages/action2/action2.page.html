@@ -1,0 +1,66 @@
+<!--<app-header titulo="Distribución de Productos"></app-header>-->
+
+<ion-header>
+  <ion-toolbar>
+    
+    <ion-buttons slot="start">
+      <ion-menu-button menu="first" color="primary"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Registro de Distribucion</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar" 
+    [animated]="true"
+    (ionChange)="onSearchChange( $event )"
+    [debounce]="250"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title> Lista de Distribución </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card *ngFor="let list of listDist | filtro:textoBuscar:'nomPriCli'">
+    <ion-list>
+      <ion-item>
+        <ion-label>
+          <h2> {{ list.nomPriCli }} {{ list.apePatCli }} </h2>
+          <h3> Cantidad Total de Distribuciones: {{ list.totalLista }} </h3>
+          <p> Productos a Distribuir </p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button expand="block" [routerLink]="['/','action2','entregar-distribucion', list.idcli]" >
+            <ion-icon slot="icon-only" name="bicycle-outline" color="success"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+    <!--<ion-list>
+        <ion-list-header>
+          Pedidos Solicitados
+        </ion-list-header>
+
+        <ion-item *ngFor="let dist of distrPed">
+          <ion-label>
+            <h2>{{dist.name}}</h2>
+            <h3>{{dist.fechaRegistro | date}}</h3>
+            <p>Estado Pedido: {{dist.estadoPedido}}</p>
+          </ion-label>
+
+          <ion-buttons slot="end">
+              <ion-button (click)="entrPed()" expand="block">
+                  <ion-icon slot="icon-only" name="bicycle-outline"></ion-icon>
+              </ion-button>
+          </ion-buttons>
+
+        </ion-item>
+      </ion-list>-->
+</ion-content>

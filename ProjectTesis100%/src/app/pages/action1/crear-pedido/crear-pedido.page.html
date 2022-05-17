@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/action1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Actualizar Informacion del Pedido</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar" 
+    [animated]="true"
+    (ionChange)="onSearchChange( $event )"
+    [debounce]="250"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-group>
+
+      <ion-item-divider>
+        <ion-label>Datos Cliente</ion-label>
+      </ion-item-divider>
+    
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input name="nomPriCli" type="text" [(ngModel)]="cli.nomPriCli" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Apellido Paterno</ion-label>
+        <ion-input name="apePatCli" type="text" [(ngModel)]="cli.apePatCli" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Apellido Materno</ion-label>
+        <ion-input name="apeMatCli" type="text" [(ngModel)]="cli.apeMatCli" required></ion-input>
+      </ion-item>
+
+      <ion-item-divider>
+        <ion-label>Agregar Pedido</ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label>Cantidad Pedida: </ion-label>
+        <ion-input placeholder="0" type="number" [(ngModel)]="regisOrder.cantSolic" required></ion-input>
+      </ion-item>
+
+      <ion-item *ngFor="let inf of infProd | filtro:textoBuscar:'nomProd'">
+        <ion-label>
+          <h2> {{inf.nomProd}} </h2>
+          <h3> Cantidad disponible: {{inf.cantDisp}} </h3>
+          <h3> Precio por Unidad: {{inf.precio}} Bs.</h3>          
+        </ion-label>
+
+        <ion-buttons slot="end" *ngIf="inf.cantDisp != 0">
+          <ion-button (click)="searchProduct(inf.idpro, inf.nomProd, inf.precio)" expand="block">
+              <ion-icon slot="icon-only" name="enter-outline" color="success"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+      </ion-item>
+
+      <!--<ion-item>
+        <ion-label>Producto</ion-label>
+        <ion-select okText="Aceptar" cancelText="Cancelar">
+            <ion-select-option *ngFor="let inf of infProd"
+            (onClick)="searProduct(inf.idpro)"
+            value="{{inf.idpro}}">{{inf.nomProd}}
+            </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Precio por Unidad</ion-label>
+        <ion-input type="text" [(ngModel)]="prod.precio" placeholder="0">Bs.</ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Cantidad</ion-label>
+        <ion-input type="number" placeholder="0"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Monto Total</ion-label>
+        <ion-input type="text"> Bs.</ion-input>
+      </ion-item>-->
+
+      <ion-button (click)="regOrder()" expand="block" fill="clear" shape="round">
+        Agregar a la Lista de Pedidos
+      </ion-button>
+
+      <!--<ion-item-divider>
+        <ion-label>Lista de Pedido</ion-label>
+      </ion-item-divider>
+
+      <ion-item *ngFor="let listP of listPed">
+        <ion-label>
+          <h2>Producto: {{listP.name}}</h2>
+          <h3>Cantidad: {{listP.cantPed}}</h3>
+          <p>Monto Total: {{listP.amountTotal}}</p>
+        </ion-label>
+      </ion-item>-->
+
+    </ion-item-group>
+  </ion-list>
+
+  <ion-button (click)="upClient()" expand="block">
+    Actualizar Información Cliente
+  </ion-button>
+</ion-content>

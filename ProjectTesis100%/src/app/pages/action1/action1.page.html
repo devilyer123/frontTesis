@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar>
+    
+    <ion-buttons slot="start">
+      <ion-menu-button menu="first" color="primary"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Registro de Ventas</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar" 
+    [animated]="true"
+    (ionChange)="onSearchChange( $event )"
+    [debounce]="250"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title> Pedidos de Ventas Realizados </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card *ngFor="let list of listPed | filtro:textoBuscar:'nomPriCli'">
+    <ion-list>
+      <ion-item>
+        <ion-label>
+          <h2> {{ list.nomPriCli }} {{ list.apePatCli }} {{ list.apeMatCli }} </h2>
+          <h3> Cantidad Total de Pedidos: {{ list.totalLista }} </h3>
+          <!--<h3> Cantidad de Productos </h3>-->
+          <p> Productos Vendidos </p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button expand="block" [routerLink]="['/','action1','orders-client', list.idcli]" >
+            <ion-icon slot="icon-only" name="alert-circle-outline" color="success"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+
+    <ion-item>
+      <ion-buttons slot="end">
+        <ion-button expand="block" [routerLink]="['/','action1','crear-pedido', list.idcli]" >
+          <ion-icon slot="icon-only" name="pencil-outline" color="warning" ></ion-icon>
+        </ion-button>
+        <ion-button expand="block" (click)="delCli(list.idcli)">
+          <ion-icon slot="icon-only" name="trash-outline" color="danger"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+  </ion-card>
+
+  <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+    <ion-fab-button color="primary" (click)="crePedido()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+    <!--<ion-list>
+        <ion-list-header>
+          Pedidos Recientes
+        </ion-list-header>
+
+        <ion-item *ngFor="let ped of pedidos">
+          <ion-label>
+            <h2>{{ped.name}}</h2>
+            <h3>{{ped.fechaRegistro | date}}</h3>
+            <p>Cantidad de Productos solicitado: {{ped.numberProducts}}</p>
+          </ion-label>
+          <ion-buttons slot="end">
+            <ion-button (click)="presentPopover( $event )" expand="block">
+              <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </ion-list>-->
+
+</ion-content>

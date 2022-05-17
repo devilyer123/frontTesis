@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/action2"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pedidos Solicitados</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="selectPdf()">
+        <ion-icon color="secondary" slot="icon-only" name="document-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="downloadPdf()"  [disabled]="!pdfObj">
+        <ion-icon color="secondary" slot="icon-only" name="download-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar" 
+    [animated]="true"
+    (ionChange)="onSearchChange( $event )"
+    [debounce]="250"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content> 
+  <ion-card *ngFor="let distri of distribution | filtro:textoBuscar:'nomPro'">
+    <ion-card-header>
+      <ion-card-title> {{distri.nomPro}} </ion-card-title>
+      <ion-card-subtitle> Cantidad Solicitada: {{distri.cantSolic}} </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content> Monto Total: {{distri.montoTotal}} </ion-card-content>
+    <ion-item *ngIf="distri.estadoPedido == 'Pendiente'">
+      <ion-label> Fecha del Pedido: {{distri.createdAt | date:'dd/MM/yyyy HH:mm:ss'}} </ion-label>
+    </ion-item>
+    <ion-item *ngIf="distri.estadoPedido == 'Entregado'">
+      <ion-label> Fecha de Entrega: {{distri.updatedAt | date:'dd/MM/yyyy HH:mm:ss'}} </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Estado del Pedido: {{distri.estadoPedido}}</ion-label>
+      <ion-buttons slot="end" *ngIf="compare(distri.estadoPedido)" >
+        <ion-button expand="block" [routerLink]="['/','action2','update-distribution', distri.iddis]">
+          <ion-icon slot="icon-only" name="chevron-forward-outline" color="warning" ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <!--<ion-item>
+      <ion-label>Estado del Pedido: {{distri.estadoPedido}}</ion-label>
+      <ion-buttons slot="end" *ngIf="compare(distri.estadoPedido)" >
+        <ion-button expand="block" (click)="saveDist(distri.iddis)">
+          <ion-icon slot="icon-only" name="scan-outline" color="warning" ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item *ngIf="compare(distri.estadoPedido)">
+      <ion-label>Tipo de Pago: {{upTypPage.typPage}}</ion-label>
+      <ion-buttons slot="end" >
+        <ion-button expand="block" (click)="savetypPage()">
+          <ion-icon slot="icon-only" name="scan-outline" color="warning" ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item>
+      <ion-label>Estado del Pedido</ion-label>
+      <ion-select [(ngModel)]="distri.estadoPedido"
+      okText="Aceptar" cancelText="Cancelar" value="{{distri.estadoPedido}}">
+        <ion-select-option name="estadoPedido" *ngFor="let infE of infEstado" value="{{infE.estadoPedido}}">{{infE.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="compare(distri.estadoPedido)">
+      <ion-buttons slot="end">
+        <ion-button expand="block" (click)="upDist()">
+          <ion-icon slot="icon-only" name="send-outline" color="success"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>-->
+  </ion-card>
+</ion-content>

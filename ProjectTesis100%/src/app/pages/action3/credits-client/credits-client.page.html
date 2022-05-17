@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/action3"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Lista de Creditos del Cliente</ion-title>
+
+    <ion-buttons slot="end">
+      <!--<ion-button (click)="selectPdf()">
+        <ion-icon color="secondary" slot="icon-only" name="document-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="downloadPdf()"  [disabled]="!pdfObj">
+        <ion-icon color="secondary" slot="icon-only" name="download-outline"></ion-icon>
+      </ion-button>-->
+      <ion-button [routerLink]="['/','action3','reports-client', cli.idcli]">
+        <ion-icon color="secondary" slot="icon-only" name="documents-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar" 
+    [animated]="true"
+    (ionChange)="onSearchChange( $event )"
+    [debounce]="250"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let cred of credit | filtro:textoBuscar:'nomPro'">
+    <ion-card-header>
+      <ion-card-title> {{cred.nomPro}} </ion-card-title>
+      <ion-card-subtitle> Cantidad Vendida: {{cred.cantVend}} </ion-card-subtitle>
+      <ion-card-subtitle> Monto Total de Venta: {{cred.montoCred}} </ion-card-subtitle>
+    </ion-card-header>
+    <ion-item>
+      <ion-label> Tipo de Pago: {{cred.tipoPago}} </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label> Ultima Actualización: {{cred.updatedAt | date:'dd/MM/yyyy HH:mm:ss'}} </ion-label>
+    </ion-item>
+    <ion-item *ngIf="compareDebtAmount(cred.montoCredPend)">
+      <ion-label> Monto de Deuda Pendiente: {{cred.montoCredPend}} </ion-label>
+      <ion-buttons slot="end">
+        <ion-button expand="block" [routerLink]="['/','action3','cobrar-credito', cred.idsegcre]">
+          <ion-icon slot="icon-only" name="cash-outline" color="success"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item *ngIf="compareDebtStatus(cred.estadoCred)">
+      <ion-label> Estado de la Deuda: {{cred.estadoCred}} </ion-label>
+    </ion-item>
+  </ion-card>
+
+</ion-content>

@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/users"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro de Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="register( fRegister )" #fRegister="ngForm">
+    <ion-list>
+      <ion-item-group>
+  
+        <ion-item-divider>
+          <ion-label>Datos Usuario</ion-label>
+        </ion-item-divider>
+      
+        <ion-item>
+          <ion-label position="floating">Primer Nombre</ion-label>
+          <ion-input name="priNombre" type="text" [(ngModel)]="registerUser.priNombre" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Segundo Nombre</ion-label>
+          <ion-input name="secNombre" type="text" [(ngModel)]="registerUser.secNombre"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Apellido Paterno</ion-label>
+          <ion-input name="apPaterno" type="text" [(ngModel)]="registerUser.apPaterno" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Apellido Materno</ion-label>
+          <ion-input name="apMaterno" type="text" [(ngModel)]="registerUser.apMaterno" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Número Celular</ion-label>
+          <ion-input name="nrocelular" type="number" [(ngModel)]="registerUser.nrocelular" required></ion-input>
+        </ion-item>
+  
+        <ion-item-divider>
+          <ion-label>Datos de la Cuenta</ion-label>
+        </ion-item-divider>
+
+        <ion-item>
+          <ion-label position="floating">Rol de Usuario</ion-label>
+          <ion-input name="rolUser" type="text" [(ngModel)]="registerUser.rolUser" required></ion-input>
+          <ion-buttons slot="end">
+            <ion-button expand="block" (click)="assignRol()">
+              <ion-icon slot="icon-only" name="nuclear-outline" color="tertiary" ></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label position="floating">Nombre de Usuario</ion-label>
+          <ion-input name="username" type="text" [(ngModel)]="registerUser.username" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input name="email" type="email" [(ngModel)]="registerUser.email" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input name="password" type="password" [(ngModel)]="registerUser.password" required></ion-input>
+        </ion-item>
+        
+      </ion-item-group>
+    </ion-list>
+  
+    <ion-button color="tertiary" shape="round" type="submit">Crear Usuario</ion-button>
+        <!--expand="block" fill="clear" shape="round"-->
+  </form>
+
+</ion-content>

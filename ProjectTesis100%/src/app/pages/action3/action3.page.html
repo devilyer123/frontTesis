@@ -1,0 +1,75 @@
+<!--<app-header titulo="Registro de Creditos"></app-header>-->
+
+<ion-header>
+  <ion-toolbar>
+    
+    <ion-buttons slot="start">
+      <ion-menu-button menu="first" color="primary"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Registro de Creditos</ion-title>
+
+    <!--<ion-buttons slot="end">
+      <ion-button (click)="generatePDF()">
+        <ion-icon color="secondary" slot="icon-only" name="document-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="downloadPdf()"  [disabled]="!pdfObj">
+        <ion-icon color="secondary" slot="icon-only" name="download-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>-->
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar" 
+    [animated]="true"
+    (ionChange)="onSearchChange( $event )"
+    [debounce]="250"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title> Lista de Cobranzas </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card *ngFor="let list of listCred | filtro:textoBuscar:'nomPriCli'">
+    <ion-list>
+      <ion-item>
+        <ion-label>
+          <h2> {{ list.nomPriCli }} {{ list.apePatCli }} </h2>
+          <h3> Cantidad Total de Creditos: {{ list.totalLista }} </h3>
+          <p> Productos a Cobrar </p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button expand="block" [routerLink]="['/','action3','credits-client', list.idcli]" >
+            <ion-icon slot="icon-only" name="wallet-outline" color="warning"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+    <!--<ion-list>
+        <ion-list-header>
+          Pedidos Solicitados
+        </ion-list-header>
+
+        <ion-item *ngFor="let cred of listCred">
+          <ion-label>
+            <h2>{{cred.name}}</h2>
+            <h3>Monto a Cobrar: {{cred.montoTotal}} Bs.</h3>
+            <p>Tipo de Pago: {{cred.tipoPago}}</p>
+          </ion-label>
+
+          <ion-buttons slot="end">
+              <ion-button (click)="entrPed()" expand="block">
+                  <ion-icon slot="icon-only" name="wallet-outline"></ion-icon>
+              </ion-button>
+          </ion-buttons>
+
+        </ion-item>
+      </ion-list>-->
+</ion-content>

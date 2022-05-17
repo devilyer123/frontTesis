@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/action2"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Entrega de Pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-group>
+
+      <ion-item-divider>
+        <ion-label>Datos Cliente</ion-label>
+      </ion-item-divider>
+    
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Apellido</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+
+      <ion-item-divider>
+        <ion-label>Lista de Pedido</ion-label>
+      </ion-item-divider>
+
+      <ion-item *ngFor="let listP of listPed">
+        <ion-label>
+          <h2>Producto: {{listP.name}}</h2>
+          <h3>Cantidad: {{listP.cantPed}}</h3>
+        </ion-label>
+        <ion-checkbox color="primary" slot="end"></ion-checkbox>
+      </ion-item>
+
+    </ion-item-group>
+  </ion-list>
+
+  <ion-button (click)="saveDis()" expand="block">
+    Entregar Pedido
+  </ion-button>
+</ion-content>

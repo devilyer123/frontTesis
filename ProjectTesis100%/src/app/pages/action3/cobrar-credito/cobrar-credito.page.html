@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [routerLink]="['/','action3','credits-client', cred.cliId]"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Realizar Cobro de Credito</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-list>
+
+      <ion-item-divider>
+        <ion-label>Datos del Producto Vendido</ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label position="floating">Nombre de Producto</ion-label>
+        <ion-input name="nomPro" type="text" [(ngModel)]="cred.nomPro"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Cantidad Vendida</ion-label>
+        <ion-input name="cantVend" type="text" [(ngModel)]="cred.cantVend"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Monto Total de Venta</ion-label>
+        <ion-input name="montoCred" type="text" [(ngModel)]="cred.montoCred"></ion-input>
+      </ion-item>
+
+      <ion-item-divider>
+        <ion-label>Datos de Credito de la Venta</ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label position="floating">Tipo de Pago</ion-label>
+        <ion-input name="tipoPago" type="text" [(ngModel)]="cred.tipoPago" disabled required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Monto de Deuda Pendiente</ion-label>
+        <ion-input name="montoCredPend" type="text" [(ngModel)]="cred.montoCredPend" disabled required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Monto a Cobrar del Cliente</ion-label>
+        <ion-input name="credAdd" type="number" [(ngModel)]="upCreditCollet.credAdd" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Estado de la Deuda</ion-label>
+        <ion-input name="estadoCred" type="text" [(ngModel)]="cred.estadoCred" disabled required></ion-input>
+      </ion-item>
+      
+    </ion-list>
+
+    <ion-button color="tertiary" shape="round" (click)="upCredit()">Realizar Cobro de Deuda</ion-button>
+
+  </form>
+</ion-content>

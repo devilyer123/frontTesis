@@ -1,0 +1,32 @@
+[
+    {
+        "icon": "people-outline",
+        "name": "Usuarios ",
+        "redirectTo": "/users"
+    },
+    {
+        "icon": "albums-outline",
+        "name": "Productos en Stock",
+        "redirectTo": "/products"
+    },
+    {
+        "icon": "reader-outline",
+        "name": "Gestión de Venta",
+        "redirectTo": "/action1"
+    },
+    {
+        "icon": "bus-outline",
+        "name": "Gestión de Distribución",
+        "redirectTo": "/action2"
+    },
+    {
+        "icon": "cash-outline",
+        "name": "Gestión de Seguimiento de Creditos",
+        "redirectTo": "/action3"
+    },
+    {
+        "icon": "exit-outline",
+        "name": "CERRAR SESIÓN",
+        "redirectTo": "/inicio"
+    }
+]

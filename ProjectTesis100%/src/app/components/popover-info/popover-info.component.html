@@ -1,0 +1,6 @@
+<ion-list>
+  <ion-item *ngFor="let opt of options"
+  (click)="openOption(opt.redirectTo)">
+    <ion-label>{{ opt.name }}</ion-label>
+  </ion-item>
+</ion-list>

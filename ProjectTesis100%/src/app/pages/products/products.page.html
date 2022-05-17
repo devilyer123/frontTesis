@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-menu-button menu="first" color="primary"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Productos</ion-title>
+
+    <ion-buttons slot="end" *ngIf="compareRolUser() == true">
+      <ion-button (click)="graphProd()">
+        <ion-icon color="warning" slot="icon-only" name="aperture"></ion-icon>
+      </ion-button>
+      <ion-button (click)="regisProd()">
+        <ion-icon color="primary" slot="icon-only" name="duplicate-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar" 
+    [animated]="true"
+    (ionChange)="onSearchChange( $event )"
+    [debounce]="250"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let prod of products | filtro:textoBuscar:'nomProd'">
+    <ion-card-header>
+      <ion-card-title> Nombre de Producto: {{ prod.nomProd }} </ion-card-title>
+      <ion-card-subtitle> Cantidad Disponible: {{ prod.cantDisp }} </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content> Precio Unitario: {{ prod.precio }} Bs. </ion-card-content>
+
+    <ion-item *ngIf="compareRolUser() == true">
+      <ion-button fill="outline" color="warning" slot="start" [routerLink]="['/','products','update-product', prod.idpro]" >Actualizar Producto</ion-button>
+      <ion-button fill="outline" color="danger" (click)="delProd(prod.idpro, prod.cantDisp)">Eliminar</ion-button>
+    </ion-item>
+
+  </ion-card>
+
+</ion-content>
