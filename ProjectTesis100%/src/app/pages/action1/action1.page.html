@@ -18,9 +18,14 @@
 
 <ion-content class="ion-padding">
 
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-card>
     <ion-card-header>
       <ion-card-title> Pedidos de Ventas Realizados </ion-card-title>
+      <ion-card-subtitle> El cliente no puede exceder de los 30,000 Bs. de credito </ion-card-subtitle>
     </ion-card-header>
   </ion-card>
 
@@ -31,7 +36,7 @@
           <h2> {{ list.nomPriCli }} {{ list.apePatCli }} {{ list.apeMatCli }} </h2>
           <h3> Cantidad Total de Pedidos: {{ list.totalLista }} </h3>
           <!--<h3> Cantidad de Productos </h3>-->
-          <p> Productos Vendidos </p>
+          <p> Credito Disponible: {{list.cantCredDisp | thousands}} Bs.</p>
         </ion-label>
         <ion-buttons slot="end">
           <ion-button expand="block" [routerLink]="['/','action1','orders-client', list.idcli]" >
@@ -41,12 +46,12 @@
       </ion-item>
     </ion-list>
 
-    <ion-item>
+    <ion-item *ngIf="list.cantCredDisp > 0 || list.totalLista == 0">
       <ion-buttons slot="end">
-        <ion-button expand="block" [routerLink]="['/','action1','crear-pedido', list.idcli]" >
+        <ion-button *ngIf="list.cantCredDisp > 0" expand="block" [routerLink]="['/','action1','crear-pedido', list.idcli]" >
           <ion-icon slot="icon-only" name="pencil-outline" color="warning" ></ion-icon>
         </ion-button>
-        <ion-button expand="block" (click)="delCli(list.idcli)">
+        <ion-button *ngIf="list.totalLista == 0" expand="block" (click)="delCli(list.idcli)">
           <ion-icon slot="icon-only" name="trash-outline" color="danger"></ion-icon>
         </ion-button>
       </ion-buttons>

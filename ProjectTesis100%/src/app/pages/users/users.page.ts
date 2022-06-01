@@ -39,10 +39,20 @@ export class UsersPage implements OnInit {
     this.searchRolUser();
     this.searchDataUser();
     this.loadUsers();
+    //this.doRefresh(event);
   }
 
   onSearchChange( event ) {
     this.textoBuscar = event.detail.value;
+  }
+
+  doRefresh( event ) {
+    this.users = [];
+    setTimeout(() => {
+      this.searchDataUser();
+      this.loadUsers();
+      event.target.complete();
+    }, 10);
   }
 
   async searchRolUser() {
@@ -62,7 +72,7 @@ export class UsersPage implements OnInit {
   }
 
   compareRolUser() {
-    if (this.rol.rolUser == 'Administrador')
+    if (this.rol.rolUser == 'Administrador' || this.rol.rolUser == 'Gerente')
     {
       return true;
     } else {
@@ -105,7 +115,8 @@ export class UsersPage implements OnInit {
             console.log(id);
             this.usuarioService.getDelete(id).subscribe(
               (res) => {
-                this.loadUsers();
+                //this.loadUsers();
+                this.doRefresh(event);
                 console.log(res);
               },
               (err) => console.log(err)

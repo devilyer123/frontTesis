@@ -119,10 +119,26 @@ export class CrearPedidoPage implements OnInit {
   ngOnInit() {
     this.searchClient();
     this.loadInfProd();
+    //this.doRefresh(event);
   }
 
   onSearchChange( event ) {
     this.textoBuscar = event.detail.value;
+  }
+
+  doRefresh( event ) {
+    this.infProd = [];
+    this.regisOrder = {
+      cliId: 0,
+      proId: 0,
+      nomPro: '',
+      cantSolic: 0,
+      montoTotal: 0
+    };
+    setTimeout(() => {
+      this.loadInfProd();
+      event.target.complete();
+    }, 10);
   }
 
   searchClient() {
@@ -240,7 +256,7 @@ export class CrearPedidoPage implements OnInit {
               placeholder: 'Cantidad: ' + this.regisOrder.cantSolic
             },
             {
-              placeholder: 'Monto total: ' + this.calcularMonto(price, this.regisOrder.cantSolic) + ' Bs.'
+              placeholder: 'Monto total: ' + this.transform(this.calcularMonto(price, this.regisOrder.cantSolic)) + ' Bs.'
             }
           ],
           buttons:[
@@ -283,6 +299,10 @@ export class CrearPedidoPage implements OnInit {
       this.infProd.push(...resp.dataProds);
       console.log(this.infProd);
     });
+  }
+
+  transform(value: any) {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
   }
 
 }

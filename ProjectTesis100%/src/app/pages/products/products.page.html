@@ -27,12 +27,16 @@
 
 <ion-content>
 
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-card *ngFor="let prod of products | filtro:textoBuscar:'nomProd'">
     <ion-card-header>
       <ion-card-title> Nombre de Producto: {{ prod.nomProd }} </ion-card-title>
       <ion-card-subtitle> Cantidad Disponible: {{ prod.cantDisp }} </ion-card-subtitle>
     </ion-card-header>
-    <ion-card-content> Precio Unitario: {{ prod.precio }} Bs. </ion-card-content>
+    <ion-card-content> Precio Unitario: {{ prod.precio | thousands }} Bs. </ion-card-content>
 
     <ion-item *ngIf="compareRolUser() == true">
       <ion-button fill="outline" color="warning" slot="start" [routerLink]="['/','products','update-product', prod.idpro]" >Actualizar Producto</ion-button>

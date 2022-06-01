@@ -20,6 +20,10 @@
 
 <ion-content>
 
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-card>
     <ion-card-header>
       <ion-card-title> Lista de Distribución </ion-card-title>
@@ -30,9 +34,9 @@
     <ion-list>
       <ion-item>
         <ion-label>
-          <h2> {{ list.nomPriCli }} {{ list.apePatCli }} </h2>
+          <h2> {{ list.nomPriCli }} {{ list.apePatCli }} {{ list.apeMatCli }} </h2>
           <h3> Cantidad Total de Distribuciones: {{ list.totalLista }} </h3>
-          <p> Productos a Distribuir </p>
+          <p> Cantidad de Distribuciones Pendientes: {{list.nroDists}} </p>
         </ion-label>
         <ion-buttons slot="end">
           <ion-button expand="block" [routerLink]="['/','action2','entregar-distribucion', list.idcli]" >

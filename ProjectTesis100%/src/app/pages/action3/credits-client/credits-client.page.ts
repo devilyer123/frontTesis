@@ -37,6 +37,8 @@ export class CreditsClientPage implements OnInit {
   pdfObj: any;
   logoData = null;
   showlogo = true;
+
+  estadoCred: string = '';
   
   /*credit: Credit = {
     nomPro: '',
@@ -57,12 +59,26 @@ export class CreditsClientPage implements OnInit {
 
   ngOnInit() {
     this.searchClient();
-    this.loadCreditByClient();
     this.loadLocalAssetToBase64();
+    this.loadCreditByClient();
+    //this.doRefresh(event);
   }
 
   onSearchChange( event ) {
     this.textoBuscar = event.detail.value;
+  }
+
+  segmentChanged( event ) {
+    this.estadoCred = event.detail.value;
+  }
+
+  doRefresh( event ) {
+    this.credit = [];
+    setTimeout(() => {
+      //console.log(this.loadClientByUser());
+      this.loadCreditByClient();
+      event.target.complete();
+    }, 10);
   }
 
   loadCreditByClient() {

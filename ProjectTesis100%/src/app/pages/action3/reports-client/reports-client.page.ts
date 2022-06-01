@@ -142,11 +142,11 @@ export class ReportsClientPage implements OnInit {
         if (tyPdf == this.credit[i].estadoCred) {
           //if ( this.credit[i].updatedAt >= this.fechaInial && this.credit[i].updatedAt <= this.fechaFinal) {
             body2.push([this.credit[i].nomPro, 
-              this.credit[i].cantVend, 
-              this.credit[i].montoCred, 
-              this.credit[i].tipoPago,
-              this.credit[i].montoCredPend,
-              this.credit[i].updatedAt,
+            this.credit[i].cantVend, 
+            this.transform(this.credit[i].montoCred)+' Bs.', 
+            this.credit[i].tipoPago,
+            this.transform(this.credit[i].montoCredPend)+' Bs.',
+            moment(this.credit[i].updatedAt).format('DD/MM/YYYY, h:mm:ss a'),
             this.credit[i].estadoCred]);
           //}          
         }
@@ -157,12 +157,12 @@ export class ReportsClientPage implements OnInit {
           if (new Date(this.credit[i].updatedAt).getTime() >= new Date(this.fechaInicial).getTime() && 
               new Date(this.credit[i].updatedAt).getTime() <= new Date(this.fechaFinal).getTime()) {
             body2.push([this.credit[i].nomPro, 
-              this.credit[i].cantVend, 
-              this.credit[i].montoCred, 
-              this.credit[i].tipoPago,
-              this.credit[i].montoCredPend,
-              moment(this.credit[i].updatedAt).format('DD/MM/YYYY, h:mm:ss a'),
-              this.credit[i].estadoCred]);
+            this.credit[i].cantVend, 
+            this.transform(this.credit[i].montoCred)+' Bs.', 
+            this.credit[i].tipoPago,
+            this.transform(this.credit[i].montoCredPend)+' Bs.',
+            moment(this.credit[i].updatedAt).format('DD/MM/YYYY, h:mm:ss a'),
+            this.credit[i].estadoCred]);
             //console.log(new Date(this.credit[i].updatedAt).getTime());
           }
           //console.log(moment(this.credit[i].updatedAt).format('DD MMMM YYYY'));
@@ -177,14 +177,14 @@ export class ReportsClientPage implements OnInit {
           columns: [
             logo,
             {
-              text: moment(new Date()).format('DD MMMM YYYY, h:mm:ss a'),
+              text: moment(new Date()).format('DD MMMM YYYY, h:mm:ss A [(Hora de Bolivia)]'),
               alignment: 'right'
             }
           ]
         },
-        { text: 'SEGUIMIENTO DE CREDITOS', style: 'header', alignment: 'center' },
-        { text: 'Lista de Seguimiento de Creditos del Cliente', style: 'subheader', alignment: 'center' },
-        'Listado actual de todos los creditos del cliente: '+ this.cli.nomPriCli+' '+this.cli.apePatCli+' '+this.cli.apeMatCli,
+        { text: 'SEGUIMIENTO DE CRÉDITOS', style: 'header', alignment: 'center' },
+        { text: 'Lista de Seguimiento de Créditos del Cliente', style: 'subheader', alignment: 'center' },
+        'Listado actual de todos los créditos del cliente: '+ this.cli.nomPriCli+' '+this.cli.apePatCli+' '+this.cli.apeMatCli,
         {
           style: 'tableExample',
           table: {
@@ -254,6 +254,10 @@ export class ReportsClientPage implements OnInit {
   cambioFecha(event) {
     console.log(event);
     console.log(new Date(event.detail.value));
+  }
+
+  transform(value: any) {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
   }
 
 }

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { environment } from 'src/environments/environment';
 import { RespuestaUsers, upUser, User } from '../interfaces/interfaces';
+import { NavController } from '@ionic/angular';
 
 const URL = environment.url;
 
@@ -15,7 +16,8 @@ export class UsuarioService {
   //dataUsuario = {};
 
   constructor( private http: HttpClient,
-    private storage: Storage) { }
+    private storage: Storage,
+    private navCtrl: NavController) { }
 
   getUsers() {
     return this.http.get<RespuestaUsers>(`${ URL }/users`);
@@ -62,11 +64,11 @@ export class UsuarioService {
         console.log(resp);
 
         if( resp['ok'] ){
-          this.guardarToken( resp['token'] );
+          //this.guardarToken( resp['token'] );
           resolve(true);
         } else {
-          this.token = null;
-          this.storage.clear();
+          //this.token = null;
+          //this.storage.clear();
           resolve(false);
         }
 
@@ -123,7 +125,11 @@ export class UsuarioService {
       });
     })
 
-    
+  }
+
+  logout() {
+    this.token = null;
+    this.storage.clear();
   }
 
 

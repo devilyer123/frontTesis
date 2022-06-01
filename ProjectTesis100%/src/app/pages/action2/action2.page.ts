@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Client, Distribution, listVis, Order } from 'src/app/interfaces/interfaces';
+import { Client, Distribution, listVisDist, Order } from 'src/app/interfaces/interfaces';
 import { UsuarioService } from '../../services/usuario.service';
 import { ClientService } from 'src/app/services/client.service';
 import { DistributionService } from 'src/app/services/distribution.service';
@@ -47,9 +47,11 @@ export class Action2Page implements OnInit {
 
   ord: Distribution[] = [];
 
-  listDist: listVis[] = [];
+  listDist: listVisDist[] = [];
 
   vacio: Distribution[] = [];
+
+  distsPendiente: number = 0;
 
   constructor(private router: Router,
     private usuarioService: UsuarioService,
@@ -62,6 +64,16 @@ export class Action2Page implements OnInit {
 
   onSearchChange( event ) {
     this.textoBuscar = event.detail.value;
+  }
+
+  doRefresh( event ) {
+    this.clients = [];
+    this.listDist = [];
+    setTimeout(() => {
+      //console.log(this.loadClientByUser());
+      this.loadClientByUser();
+      event.target.complete();
+    }, 10);
   }
 
   async loadClientByUser() {
@@ -80,12 +92,19 @@ export class Action2Page implements OnInit {
       this.distributionService.getDistributionsByClient(this.clients[i].idcli)
       .subscribe(resp => {
         this.ord.push(...resp.dataDistributions);
+        this.distsPendiente = 0;
+        for(let y = 0; y < this.ord.length; y++) {
+          if(this.ord[y].estadoPedido == 'Pendiente'){
+            this.distsPendiente = this.distsPendiente + 1;
+          }
+        }
         this.listDist[i]= {
           idcli: this.clients[i].idcli,
           nomPriCli: this.clients[i].nomPriCli,
           apePatCli: this.clients[i].apePatCli,
           apeMatCli: this.clients[i].apeMatCli,
-          totalLista: this.ord.length
+          totalLista: this.ord.length,
+          nroDists: this.distsPendiente
         }
         this.ord = [];
       })      

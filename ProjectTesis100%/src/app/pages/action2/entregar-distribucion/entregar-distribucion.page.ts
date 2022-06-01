@@ -13,6 +13,8 @@ import { Filesystem, FilesystemDirectory } from '@capacitor/core';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-entregar-distribucion',
   templateUrl: './entregar-distribucion.page.html',
@@ -55,6 +57,8 @@ export class EntregarDistribucionPage implements OnInit {
     typPdf: ''
   }
 
+  estadoPedido: string = '';
+
   pdfObj: any;
   logoData = null;
   showlogo = true;
@@ -71,14 +75,31 @@ export class EntregarDistribucionPage implements OnInit {
 
   ngOnInit() {
     this.searchClient();
-    this.loadDistributionByClient();
     this.loadLocalAssetToBase64();
+    this.loadDistributionByClient();
+    //this.doRefresh(event);
   }
 
   onSearchChange( event ) {
     this.textoBuscar = event.detail.value;
   }
 
+  segmentChanged( event ) {
+    //console.log(event.detail.value);
+    //if(event.detail.value === 'Pendiente') {
+    //  return this.estadoPedido = 'Pendiente';
+    //}
+
+    this.estadoPedido = event.detail.value;
+  }
+
+  doRefresh( event ) {
+    this.distribution = [];
+    setTimeout(() => {
+      this.loadDistributionByClient();
+      event.target.complete();
+    }, 10);
+  }
 
   loadDistributionByClient() {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
@@ -268,8 +289,8 @@ export class EntregarDistribucionPage implements OnInit {
         if (tyPdf == this.distribution[i].estadoPedido) {
           body2.push([this.distribution[i].nomPro, 
             this.distribution[i].cantSolic, 
-            this.distribution[i].montoTotal, 
-            this.distribution[i].createdAt,
+            this.transform(this.distribution[i].montoTotal)+' Bs.', 
+            moment(this.distribution[i].createdAt).format('DD/MM/YYYY, h:mm:ss A'),
             this.distribution[i].estadoPedido]);
         }        
       }
@@ -283,10 +304,10 @@ export class EntregarDistribucionPage implements OnInit {
         for(let i=0; i< this.distribution.length; i++) {
           if (tyPdf == this.distribution[i].estadoPedido) {
             body2.push([this.distribution[i].nomPro, 
-              this.distribution[i].cantSolic, 
-              this.distribution[i].montoTotal, 
-              this.distribution[i].createdAt,
-              this.distribution[i].estadoPedido]);
+            this.distribution[i].cantSolic, 
+            this.transform(this.distribution[i].montoTotal)+' Bs.', 
+            moment(this.distribution[i].updatedAt).format('DD/MM/YYYY, h:mm:ss A'),
+            this.distribution[i].estadoPedido]);
           }        
         }
       } else {
@@ -297,11 +318,21 @@ export class EntregarDistribucionPage implements OnInit {
           'Fecha del Pedido/Entrega',
           'Estado del Pedido'])
           for(let i=0; i< this.distribution.length; i++) {
-            body2.push([this.distribution[i].nomPro, 
-              this.distribution[i].cantSolic, 
-              this.distribution[i].montoTotal, 
-              this.distribution[i].createdAt,
-              this.distribution[i].estadoPedido]);     
+            if (this.distribution[i].estadoPedido == 'Pendiente') {
+              body2.push([this.distribution[i].nomPro, 
+                this.distribution[i].cantSolic, 
+                this.transform(this.distribution[i].montoTotal)+' Bs.', 
+                moment(this.distribution[i].createdAt).format('DD/MM/YYYY, h:mm:ss A'),
+                this.distribution[i].estadoPedido]);
+            } else {
+              if (this.distribution[i].estadoPedido == 'Entregado') {
+                body2.push([this.distribution[i].nomPro, 
+                this.distribution[i].cantSolic, 
+                this.transform(this.distribution[i].montoTotal)+' Bs.', 
+                moment(this.distribution[i].updatedAt).format('DD/MM/YYYY, h:mm:ss A'),
+                this.distribution[i].estadoPedido]);
+              }
+            }   
           }          
         }
       }
@@ -314,14 +345,14 @@ export class EntregarDistribucionPage implements OnInit {
           columns: [
             logo,
             {
-              text: new Date().toTimeString(),
+              text: moment(new Date()).format('DD MMMM YYYY, h:mm:ss A [(Hora de Bolivia)]'),
               alignment: 'right'
             }
           ]
         },
         { text: 'SEGUIMIENTO DE DISTRIBUCIONES', style: 'header', alignment: 'center' },
         { text: 'Lista de Seguimiento de Distribuciones del Cliente', style: 'subheader', alignment: 'center' },
-        'Listado actual de todos los distribuciones del cliente: '+ this.cli.nomPriCli+' '+this.cli.apePatCli+' '+this.cli.apeMatCli,
+        'Listado actual de todas las Distribuciones del cliente: '+ this.cli.nomPriCli+' '+this.cli.apePatCli+' '+this.cli.apeMatCli,
         {
           style: 'tableExample',
           table: {
@@ -386,6 +417,10 @@ export class EntregarDistribucionPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  transform(value: any) {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
   }
 
 }

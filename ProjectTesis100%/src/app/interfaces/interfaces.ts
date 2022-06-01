@@ -91,17 +91,51 @@ export interface Client {
     updatedAt?: Date*/
 }
 
-export interface listVis {
+export interface listCredDisp {
+    credDisp: number
+}
+
+export interface listVisPed {
     idcli?: number,
     nomPriCli: string,
     apePatCli: string,
     apeMatCli: string,
-    totalLista: number
+    totalLista: number,
+    cantCredDisp: number
+}
+
+export interface listVisDist {
+    idcli?: number,
+    nomPriCli: string,
+    apePatCli: string,
+    apeMatCli: string,
+    totalLista: number,
+    nroDists: number
+}
+
+export interface listVisCred {
+    idcli?: number,
+    nomPriCli: string,
+    apePatCli: string,
+    apeMatCli: string,
+    nroCreds: number,
+    cantCreds: number
 }
 
 export interface listProdGrap {
     nomPro: string,
-    cantVend: number
+    cantVend: number,
+    cantStock: number
+}
+
+export interface listProdGrapDist {
+    estadDist: string,
+    cantDist: number
+}
+
+export interface listProdGrapCred {
+    estadCred: string,
+    cantCred: number
 }
 
 export interface Order {

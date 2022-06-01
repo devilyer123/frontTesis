@@ -30,21 +30,21 @@
       <!--<ion-card-subtitle> Pedido Realizado: {{ord.createdAt | date:'dd-MM-yyyy HH:mm:ss'}} </ion-card-subtitle>-->
       <ion-card-subtitle> Cantidad Solicitada: {{ord.cantSolic}} </ion-card-subtitle>
     </ion-card-header>
-    <ion-card-content> Monto Total: {{ord.montoTotal}} </ion-card-content>
+    <ion-card-content> Monto Total: {{ord.montoTotal | thousands}} Bs. </ion-card-content>
     <ion-item>
       <ion-label> Vendido: {{ord.createdAt | date:'dd/MM/yyyy HH:mm:ss'}} </ion-label>
       <ion-buttons slot="end">
-        <ion-button (click)="generateInvoice()">
+        <ion-button (click)="generateInvoice(ord.idped, ord.createdAt, ord.cliId, ord.nomPro, ord.cantSolic, ord.montoTotal)">
           <ion-icon color="secondary" slot="icon-only" name="file-tray-full-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-item>
-    <ion-item>
+    <!--<ion-item>
       <ion-buttons slot="end">
         <ion-button expand="block" (click)="searchProduct(ord.idped, ord.proId, ord.cantSolic)">
           <ion-icon slot="icon-only" name="trash-outline" color="danger"></ion-icon>
         </ion-button>
       </ion-buttons>
-    </ion-item>
+    </ion-item>-->
   </ion-card>
 </ion-content>

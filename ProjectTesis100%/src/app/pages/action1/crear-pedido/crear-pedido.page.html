@@ -15,6 +15,11 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-list>
     <ion-item-group>
 
@@ -48,7 +53,7 @@
         <ion-label>
           <h2> {{inf.nomProd}} </h2>
           <h3> Cantidad disponible: {{inf.cantDisp}} </h3>
-          <h3> Precio por Unidad: {{inf.precio}} Bs.</h3>          
+          <h3> Precio por Unidad: {{inf.precio | thousands}} Bs.</h3>          
         </ion-label>
 
         <ion-buttons slot="end" *ngIf="inf.cantDisp != 0">

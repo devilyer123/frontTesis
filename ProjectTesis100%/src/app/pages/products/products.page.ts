@@ -19,11 +19,11 @@ export class ProductsPage implements OnInit {
 
   products: Product[] = [];
 
-  prod: Product = {
+  /*prod: Product = {
     nomProd: '',
     cantDisp: 0,
     precio: 0
-  }
+  }*/
 
   rol: rolUser = {
     username: '',
@@ -39,11 +39,22 @@ export class ProductsPage implements OnInit {
 
   ngOnInit() {
     this.searchRolUser();
+    this.compareRolUser();
+    //this.doRefresh(event);
     this.loadProducts();    
   }
 
   onSearchChange( event ) {
     this.textoBuscar = event.detail.value;
+  }
+
+  doRefresh( event ) {
+    this.products = [];
+    setTimeout(() => {
+      //console.log(this.loadClientByUser());
+      this.loadProducts();
+      event.target.complete();
+    }, 10);
   }
 
   async searchRolUser() {
@@ -57,7 +68,7 @@ export class ProductsPage implements OnInit {
   }
 
   compareRolUser() {
-    if (this.rol.rolUser == 'Administrador')
+    if (this.rol.rolUser == 'Administrador' || this.rol.rolUser == 'Gerente')
     {
       return true;
     } else {
@@ -69,7 +80,7 @@ export class ProductsPage implements OnInit {
   }
 
   menuRolUser() {
-    if (this.rol.rolUser == 'Administrador')
+    if (this.rol.rolUser == 'Administrador' || this.rol.rolUser == 'Gerente')
     {
       //this.menuCtrl.enable(false, 'rolDist')
       return "rolAdmin";
@@ -104,14 +115,14 @@ export class ProductsPage implements OnInit {
     this.loadProducts();
   }*/
 
-  recoverData(id) {
+  /*recoverData(id) {
     this.dataService.getOneProduct(id)
     .subscribe(res => {
       this.prod = res;
     })
-  }
+  }*/
 
-  async controlDelete(id) {
+  /*async controlDelete(id) {
     this.recoverData(id);
     if (this.prod.cantDisp > 0)
     {
@@ -126,7 +137,7 @@ export class ProductsPage implements OnInit {
       console.log('Se puede eliminar el producto');
     }
     
-  }
+  }*/
 
   async delProd(id, cantDisp){
     if (cantDisp == 0) {

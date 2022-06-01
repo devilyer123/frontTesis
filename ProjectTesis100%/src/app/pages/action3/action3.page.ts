@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Client, Credit, listVis, Order } from 'src/app/interfaces/interfaces';
+import { Client, Credit, listVisCred, Order } from 'src/app/interfaces/interfaces';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
 import { ClientService } from 'src/app/services/client.service';
@@ -31,7 +31,7 @@ export class Action3Page implements OnInit {
 
   ord: Credit[] = [];
 
-  listCred: listVis[] = [];
+  listCred: listVisCred[] = [];
 
   vacio: Credit[] = [];
 
@@ -43,6 +43,9 @@ export class Action3Page implements OnInit {
   photoPreview = null;
   logoData = null;
   showlogo = true;
+
+  cantCredPend: number = 0;
+  credsPendiente: number = 0;
 
   /*listCred: compCred[] = [
     {
@@ -84,6 +87,16 @@ export class Action3Page implements OnInit {
     this.textoBuscar = event.detail.value;
   }
 
+  doRefresh( event ) {
+    this.clients = [];
+    this.listCred = [];
+    setTimeout(() => {
+      //console.log(this.loadClientByUser());
+      this.loadClientByUser();
+      event.target.complete();
+    }, 10);
+  }
+
   async loadClientByUser() {
     const iduser = await this.usuarioService.obtenerUserByToken();
     this.clientService.getClientsByUser(iduser)
@@ -99,58 +112,29 @@ export class Action3Page implements OnInit {
       this.creditService.getCreditsByClient(this.clients[i].idcli)
       .subscribe(resp => {
         this.ord.push(...resp.dataCredits);
+        //console.log(this.ord);
+        this.cantCredPend = 0;
+        this.credsPendiente = 0;
+        for(let y = 0; y < this.ord.length; y++) {
+          this.cantCredPend = this.cantCredPend + this.ord[y].montoCredPend;
+          if(this.ord[y].estadoCred == 'Pendiente'){
+            this.credsPendiente = this.credsPendiente + 1;
+          }
+        }
+        //console.log(this.cantCredPend);
+        //console.log(this.credsPendiente);
         this.listCred[i]= {
           idcli: this.clients[i].idcli,
           nomPriCli: this.clients[i].nomPriCli,
           apePatCli: this.clients[i].apePatCli,
           apeMatCli: this.clients[i].apeMatCli,
-          totalLista: this.ord.length
+          nroCreds: this.credsPendiente,
+          cantCreds: this.cantCredPend
         }
         this.ord = [];
       })      
     }
     //console.log(this.listPed);
-  }
-
-  generatePDF2(){
-    var body2 = [];
-
-    //body2.push(['Nr.', 'Name', 'Beschreibung', 'Preis', 'Anzahl', 'MwSt(%)']);
-
-    console.log(this.clients.length)
-    for(let i=0; i < this.clients.length; i++) {
-      body2.push([this.clients[i].nomPriCli +" "+ this.clients[i].apePatCli +" "+ this.clients[i].apeMatCli]);
-    }
-
-    let docDefinition = {
-      content: [
-        {
-          table: {
-            widths: ['auto'],
-            body: body2
-          }
-        }
-      ]
-    }
-
-    /*body2.push(['Nr.', 'Name', 'Beschreibung', 'Preis', 'Anzahl', 'MwSt(%)']);
-
-    for(var i of [1,2,3,4]) {
-      body2.push(['#.'+i, 'xx', 'xx', 'xx', 'xx', 'xx']);
-    }
-
-    let docDefinition = {
-      content: [
-        {
-          table: {
-            widths: ['*', 100, 200, '*', '*', '*'],
-            body: body2
-          }
-        }
-      ]
-    }*/
-    this.pdfObj = pdfMake.createPdf(docDefinition);
-    this.pdfObj.download();
   }
 
   generatePDF() {
