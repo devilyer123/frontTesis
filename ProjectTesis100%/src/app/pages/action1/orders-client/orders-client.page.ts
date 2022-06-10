@@ -266,7 +266,7 @@ export class OrdersClientPage implements OnInit {
           columns: [
             logo,
             {
-              text: ['\n','FACTURA\n','IMPORTADORA ROCHA'],
+              text: ['\n','COMPROBANTE\n','IMPORTADORA ROCHA'],
               style: 'header',
               alignment: 'left'
             },
@@ -293,7 +293,7 @@ export class OrdersClientPage implements OnInit {
                 widths: ['auto'],
                 headerRows: 1,
                 body: [
-                  [{text: 'FACTURAR A:', style: 'tableHeader', colsSpan: 1, alignment: 'left'}],
+                  [{text: 'DIRIGIDO A:', style: 'tableHeader', colsSpan: 1, alignment: 'left'}],
                   [this.cli.nomPriCli+' '+this.cli.apePatCli+' '+this.cli.apeMatCli]
                 ]
               }
@@ -306,7 +306,7 @@ export class OrdersClientPage implements OnInit {
             widths: ['*','*','*'],
             headerRows: 1,
             body: [
-              [{text: 'FACTURA #', style: 'tableHeader', colsSpan: 1, alignment: 'left'},
+              [{text: 'COMPROBANTE #', style: 'tableHeader', colsSpan: 1, alignment: 'left'},
               {text: 'FECHA DE REGISTRO', style: 'tableHeader', colsSpan: 1, alignment: 'left'},
               {text: 'IDENTIFICACIÓN DEL CLIENTE', style: 'tableHeader', colsSpan: 1, alignment: 'left'}],
               [idped, moment(createdAt).format('DD/MM/YYYY, h:mm:ss A'), cliId]

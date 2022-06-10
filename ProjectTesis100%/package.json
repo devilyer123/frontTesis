@@ -32,6 +32,7 @@
     "@ionic/storage": "^3.0.6",
     "@ionic/storage-angular": "^3.0.6",
     "chart.js": "^3.7.1",
+    "chartjs-plugin-datalabels": "^2.0.0",
     "cordova-plugin-file-opener2": "^3.0.5",
     "cordova-sqlite-storage": "^6.0.0",
     "date-fns": "^2.28.0",

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from "chart.js/auto";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+Chart.register(ChartDataLabels);
 import { utils } from 'protractor';
 import { Credit, Distribution, listProdGrap, listProdGrapCred, listProdGrapDist, Order, Product } from 'src/app/interfaces/interfaces';
 import { CreditService } from 'src/app/services/credit.service';
@@ -185,7 +187,29 @@ export class GraphicsProductsPage implements OnInit {
             }]
         },
         options: {
-        }
+          plugins: {
+            /*tooltip: {
+              enabled: false
+            },*/
+            datalabels: {
+              align: 'center',
+              color: 'white',
+              formatter: (value, context) => {
+                //console.log(value);
+                //console.log(context.chart.data.datasets[0].data);
+                const datapoints = context.chart.data.datasets[0].data;
+                function totalSum(total, datapoint) {
+                  return total + datapoint;
+                }
+                const totalvalue = datapoints.reduce(totalSum, 0);
+                const porcentageValue = (value / totalvalue * 100).toFixed(1);
+                const display = [`Cant:${value}`, `${porcentageValue}%`]
+                return display;
+              }
+            }
+          }
+        },
+        plugins: [ChartDataLabels]
     });
   }
 
@@ -213,7 +237,31 @@ export class GraphicsProductsPage implements OnInit {
           ],
           borderWidth: 1
         }]
-      }
+      },
+      options: {
+        plugins: {
+          /*tooltip: {
+            enabled: false
+          },*/
+          datalabels: {
+            align: 'center',
+            color: 'white',
+            formatter: (value, context) => {
+              //console.log(value);
+              //console.log(context.chart.data.datasets[0].data);
+              const datapoints = context.chart.data.datasets[0].data;
+              function totalSum(total, datapoint) {
+                return total + datapoint;
+              }
+              const totalvalue = datapoints.reduce(totalSum, 0);
+              const porcentageValue = (value / totalvalue * 100).toFixed(1);
+              const display = [`Cant:${value}`, `${porcentageValue}%`]
+              return display;
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
     });
   }
 
@@ -241,7 +289,31 @@ export class GraphicsProductsPage implements OnInit {
           ],
           borderWidth: 1
         }]
-      }
+      },
+      options: {
+        plugins: {
+          /*tooltip: {
+            enabled: false
+          },*/
+          datalabels: {
+            align: 'center',
+            color: 'white',
+            formatter: (value, context) => {
+              //console.log(value);
+              //console.log(context.chart.data.datasets[0].data);
+              const datapoints = context.chart.data.datasets[0].data;
+              function totalSum(total, datapoint) {
+                return total + datapoint;
+              }
+              const totalvalue = datapoints.reduce(totalSum, 0);
+              const porcentageValue = (value / totalvalue * 100).toFixed(1);
+              const display = [`Cant:${value}`, `${porcentageValue}%`]
+              return display;
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
     })
   }
 
@@ -302,7 +374,29 @@ export class GraphicsProductsPage implements OnInit {
               }]
         },
         options: {
-        }
+          plugins: {
+            /*tooltip: {
+              enabled: false
+            },*/
+            datalabels: {
+              align: 'center',
+              color: 'white',
+              formatter: (value, context) => {
+                //console.log(value);
+                //console.log(context.chart.data.datasets[0].data);
+                const datapoints = context.chart.data.datasets[0].data;
+                function totalSum(total, datapoint) {
+                  return total + datapoint;
+                }
+                const totalvalue = datapoints.reduce(totalSum, 0);
+                const porcentageValue = (value / totalvalue * 100).toFixed(1);
+                const display = [`Cant:${value}`, `${porcentageValue}%`]
+                return display;
+              }
+            }
+          }
+        },
+        plugins: [ChartDataLabels]
     });
   }
 
